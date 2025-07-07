@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: LearnGraphQL
+
+  graphql:
+    schema:
+      locations: classpath:graphql/**/
+    http:
+      path: /graphql
+    graphiql:
+      enabled: true
+      path: /graphiql

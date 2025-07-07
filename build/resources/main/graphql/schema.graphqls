@@ -1,0 +1,20 @@
+type Query {
+    sayHello: String
+    sayHelloTo(name: String!): String
+    getCustomers: [Customer]!
+    getCustomerById(id: ID!): Customer
+    getCustomersByMatchingName(name: String!): [Customer]!
+    getCustomersByAgeRange(filter: AgeRange!): [Customer]!
+}
+
+type Customer {
+    id: ID,
+    name: String,
+    age: Int,
+    city: String
+}
+
+input AgeRange {
+    minAge: Int!,
+    maxAge: Int!
+}
