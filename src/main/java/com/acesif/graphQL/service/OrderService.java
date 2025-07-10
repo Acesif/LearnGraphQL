@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -32,11 +33,13 @@ public class OrderService {
 //        return Flux.fromIterable(orders.getOrDefault(customerName, List.of()));
 //    }
 
+
+    // just using flatmap does not get items in sequential order so data may get jumbled up, so use flatmapsequential
     public Flux<List<Order>> getOrders(List<String> customerNames) {
-        return Flux.fromIterable(customerNames).flatMap(name -> getOrder(name).defaultIfEmpty(List.of()));
+        return Flux.fromIterable(customerNames).flatMapSequential(name -> getOrder(name).defaultIfEmpty(List.of()));
     }
 
     private Mono<List<Order>> getOrder(String customerName) {
-        return Mono.justOrEmpty(orders.get(customerName));
+        return Mono.justOrEmpty(orders.get(customerName)).delayElement(Duration.ofMillis(500));
     }
 }
