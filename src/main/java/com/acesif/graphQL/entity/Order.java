@@ -12,5 +12,5 @@ public class Order {
     private UUID id;
     private String description;
     private Integer totalCost;
-    private Integer quantity;
+    private Integer itemQuantity;
 }
